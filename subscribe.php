@@ -55,16 +55,9 @@ class GFB_Subscribe extends WP_Widget {
       	<?php echo $after_widget;
 		}
 
-
 	function update($new_instance, $old_instance) {
-		$new_instance['title'] = $new_instance['title'];
 		$new_instance['summary'] = wp_kses_post( $new_instance['summary'] );
-		$new_instance['button_txt'] = $new_instance['button_txt'];
-		$new_instance['m_title'] = $new_instance['m_title'];
 		$new_instance['m_summary'] = wp_kses_post( $new_instance['m_summary']);
-		$new_instance['m_img'] = $new_instance['m_img'];
-		$new_instance['privacy_policy'] = $new_instance['privacy_policy'];
-		$new_instance['button_color'] = $new_instance['button_color'];
 		return $new_instance;
 	}
 
