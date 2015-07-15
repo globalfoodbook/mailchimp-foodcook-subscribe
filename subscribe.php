@@ -29,7 +29,7 @@ class GFB_Subscribe extends WP_Widget
             'classname' => 'gfb_subscribe',
             'description' => 'MailChimp Subscribe For Food & Cook Theme .'
         );
-        parent::WP_Widget(false, __('MailChimp_Subscribe_For_Food_Cook_Theme', 'woothemes'), $widget_ops);
+        parent::WP_Widget(false, __('MailChimp Subscribe For Food Cook Theme', 'woothemes'), $widget_ops);
     }
 
     function widget($args, $instance)
