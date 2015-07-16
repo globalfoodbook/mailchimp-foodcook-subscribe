@@ -5,7 +5,7 @@
  */
 /*
 Plugin Name: MailChimp Subscribe For Food & Cook Theme
-Plugin URI: http://wordpress.org/extend/plugins/mailchimp-foodcook-subscribe/
+Plugin URI: http://wordpress.org/extend/plugins/mailchimp-subscribe-for-food-cook-theme/
 Description: This plugin is an extract from <a href='http://globalfoodbook.com' target='_blank'>globalfoodbook.com</a>. This plugin will work only on websites that have the <a href='http://themeforest.net/item/food-cook-multipurpose-food-recipe-wp-theme/4915630'>food-cook</a> template installed  and have setup mailchimp connect url, See food-cooke docs and <a href='http://kb.mailchimp.com/lists/managing-subscribers/find-your-list-id' target='_blank'>this</a> for more details. This plugin is built to help other <a href='http://themeforest.net/item/food-cook-multipurpose-food-recipe-wp-theme/4915630'>food-cook</a> site owners (from the support group) who require this utility. It is implemented to allow easy setup and customization of a website's newsletter subscription widget and modal popup. It is best used with food and cook recipe theme made with woo themes.
 Author: Ikenna N. Okpala
 Version: 1.0
@@ -19,16 +19,14 @@ if (!empty($_SERVER['SCRIPT_FILENAME']) && basename(__FILE__) == basename($_SERV
 // Enqueue script and styles
 if ( !function_exists( 'gfb_add_to_head' ) ):
   function gfb_add_to_head() {
-     wp_register_script( 'add-gfb-sub-js', plugin_dir_url( __FILE__ ) . '/includes/assets/javascript/gfb_subscribe.js', '', null,''  );
-     wp_register_style( 'add-gfb-sub-css', plugin_dir_url( __FILE__ ) . '/includes/assets/css/gfb_subscribe.css','','', 'screen' );
+     wp_register_script( 'add-gfb-sub-js', plugin_dir_url( __FILE__ ) . 'includes/assets/javascript/gfb_subscribe.js', '', null,''  );
+     wp_register_style( 'add-gfb-sub-css', plugin_dir_url( __FILE__ ) . 'includes/assets/css/gfb_subscribe.css','','', 'screen' );
      wp_enqueue_script( 'add-gfb-sub-js' );
      wp_enqueue_style( 'add-gfb-sub-css' );
-
   }
 endif;
 
 add_action( 'wp_enqueue_scripts', 'gfb_add_to_head' );
-
 
 /*---------------------------------------------------------------------------------*/
 /* GFB Newsletter Subscribe widget */
@@ -36,13 +34,14 @@ add_action( 'wp_enqueue_scripts', 'gfb_add_to_head' );
 
 class GFB_MailChimp_Subscribe extends WP_Widget
 {
+    var $plugin_name = 'MailChimp Subscribe For Food & Cook Theme.';
     var $settings = array('title', 'summary', 'button_txt', 'm_title', 'm_summary', 'm_img', 'privacy_policy');
 
     function GFB_MailChimp_Subscribe()
     {
         $widget_ops = array(
             'classname' => 'gfb_subscribe',
-            'description' => 'MailChimp Subscribe For Food & Cook Theme .'
+            'description' => $this->plugin_name
         );
         parent::WP_Widget(false, __('MailChimp Subscribe For Food Cook Theme', 'woothemes'), $widget_ops);
     }
@@ -70,33 +69,37 @@ class GFB_MailChimp_Subscribe extends WP_Widget
         }
 
         echo $before_widget;
-        if ($title) {
-            echo "<h3 style='margin:0;padding:0;'>" . $title . "</h3>";
-        }
-        if ($summary) {
-            echo "<center><p style='margin-top:5px;padding:0;font-size:14px;'>" . $summary . "</center></p>";
-        }?>
-
-        <center style="font-family:georgia, serif;vertical-align:baseline;border:0;margin:0;padding:0;color:#fff;">
-          <div style="margin-top:25px;margin-bottom:35px;font-size:22px;">
-            <a href="#" onclick="gfb_subscribe.overlay()" style="cursor:pointer;font-family:'Open Sans', sans-serif;font-weight:bold;text-transform:uppercase;color:#572641;transition:all 0.1s ease-in-out;padding:7px 12px;background-color:<?php
-            if ($button_color) {
-                echo $button_color;
-            } else {
-                echo '#512D8C';
-            } ?>;border:1px solid #512d8c;font-size:18px;">
-            <span style="color: #fff;">
-          <?php
-          if ($button_txt) {
-              echo $button_txt;
-          } else {
-              echo "Subscribe via Email";
+        if (function_exists('woo_get_dynamic_values')){
+          if ($title) {
+              echo "<h3 style='margin:0;padding:0;'>" . $title . "</h3>";
+          }
+          if ($summary) {
+              echo "<center><p style='margin-top:5px;padding:0;font-size:14px;'>" . $summary . "</center></p>";
           }?>
-          </span></a>
-          </div>
-        </center>
-        <?php
-        $this->subscribe_form($m_title, $m_summary, $m_img, $privacy_policy, $button_color);
+
+          <center style="font-family:georgia, serif;vertical-align:baseline;border:0;margin:0;padding:0;color:#fff;">
+            <div style="margin-top:25px;margin-bottom:35px;font-size:22px;">
+              <a href="#" onclick="gfb_subscribe.overlay()" style="cursor:pointer;font-family:'Open Sans', sans-serif;font-weight:bold;text-transform:uppercase;color:#572641;transition:all 0.1s ease-in-out;padding:7px 12px;background-color:<?php
+              if ($button_color) {
+                  echo $button_color;
+              } else {
+                  echo '#512D8C';
+              } ?>;border:1px solid #512d8c;font-size:18px;">
+              <span style="color: #fff;">
+            <?php
+            if ($button_txt) {
+                echo $button_txt;
+            } else {
+                echo "Subscribe via Email";
+            }?>
+            </span></a>
+            </div>
+          </center>
+          <?php
+          $this->subscribe_form($m_title, $m_summary, $m_img, $privacy_policy, $button_color);
+        } else{
+          echo "<p style='color:red;'>This plugin (". $this->plugin_name.") requires a theme built with wootheme framework to work properly</p>";
+        }
         echo $after_widget;
     }
     function update($new_instance, $old_instance)
