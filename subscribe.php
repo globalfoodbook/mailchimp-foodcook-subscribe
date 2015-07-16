@@ -90,7 +90,7 @@ class GFB_MailChimp_Subscribe extends WP_Widget
             if ($button_txt) {
                 echo $button_txt;
             } else {
-                echo "Subscribe via Email";
+                echo "Subscribe";
             }?>
             </span></a>
             </div>
@@ -135,7 +135,7 @@ class GFB_MailChimp_Subscribe extends WP_Widget
     		</p>
     		<p>
     		   <label for="<?php echo $this->get_field_id('button_txt'); ?>"><?php _e('Button Text (optional):', 'woothemes');?></label>
-           <input type="text" name="<?php echo $this->get_field_name('button_txt'); ?>"  value="<?php echo esc_attr($button_txt); ?>" class="widefat" id="<?php echo $this->get_field_id('button_txt'); ?>" placeholder="Default text is Subscribe via Email" />
+           <input type="text" name="<?php echo $this->get_field_name('button_txt'); ?>"  value="<?php echo esc_attr($button_txt); ?>" class="widefat" id="<?php echo $this->get_field_id('button_txt'); ?>" placeholder="Default text is Subscribe" />
     	  </p>
     		<p>
     		   <label for="<?php echo $this->get_field_id('button_color'); ?>"><?php
@@ -225,15 +225,18 @@ class GFB_MailChimp_Subscribe extends WP_Widget
                   <p id="gfb_intial_message" style='max-width:350px;min-width:150px;margin-top:5px;padding:0;font-size:14px;'>
                     <?php echo $m_summary;?>
                   </p>
-                </center>
-                <input id="gfb_subscribe_email_text" type="text" name="EMAIL" value="" placeholder="Enter your E-mail" id="mce-EMAIL" style="border:1px solid #DBDBDB;max-width:250px;min-width:60px;color:#000;margin-bottom:10px;height:27.5px;">
-                <button name="subscribe" id="mc-embedded-subscribe" class="btn submit button" type="button" onclick="gfb_subscribe.postData(document.getElementById('gfb_subscribe_email_text').value)" style="background:  <?php
-                if ($button_color) {
-                    echo $button_color;
-                } else {
-                    echo '#512D8C';
-                }?> none repeat scroll 0%" ><?php _e('Sign Up', 'woothemes');?></button>
-                <div id="p-footer"><b> Privacy Policy: <?php
+                  <div id="gfb_form_div">
+                    <input id="gfb_subscribe_email_text" type="text" name="EMAIL" value="" placeholder="Enter your E-mail" id="mce-EMAIL" style="border:1px solid #DBDBDB;max-width:250px;min-width:60px;color:#000;margin-bottom:10px;height:27.5px;">
+                    <input type="hidden" id="gfb_connect_mailchimp_list_url" name="Language" value="<?php echo $settings['connect_mailchimp_list_url']; ?>">
+                    <button name="subscribe" id="gfb_subscribe_button" class="btn submit button" type="button" onclick="gfb_subscribe.postData(document.getElementById('gfb_subscribe_email_text').value, document.getElementById('gfb_connect_mailchimp_list_url').value)" style="background:  <?php
+                      if ($button_color) {
+                          echo $button_color;
+                      } else {
+                          echo '#512D8C';
+                      }?> none repeat scroll 0%" ><?php _e('Sign Up', 'woothemes');?></button>
+                  </div>
+               </center>
+               <div id="p-footer"><b> Privacy Policy: <?php
                 if ($privacy_policy) {
                     echo $privacy_policy;
                 } else {
