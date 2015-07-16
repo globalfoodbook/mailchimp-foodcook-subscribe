@@ -1,5 +1,5 @@
 var GFBSubscribe = function(){};
-var gfb_subscribe = new GFBSubscribe()
+var gfb_subscribe = new GFBSubscribe();
 
 GFBSubscribe.prototype.overlay = function() {
   el = document.getElementById("overlay");
