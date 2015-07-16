@@ -64,8 +64,7 @@ class GFB_Subscribe extends WP_Widget
 
         <center style="font-family:georgia, serif;vertical-align:baseline;border:0;margin:0;padding:0;color:#fff;">
           <div style="margin-top:25px;margin-bottom:35px;font-size:22px;">
-            <!-- <a href="#" onclick="var a=document.getElementById('gfb_newsletter_signup_form');a.style.display='block';a.focus();return false;" style="cursor:pointer;font-family:'Open Sans', sans-serif;font-weight:bold;text-transform:uppercase;color:#572641;transition:all 0.1s ease-in-out;padding:7px 12px;background-color:#512d8c;border:1px solid #512d8c;font-size:18px;"> -->
-            <a href="#" onclick="overlay()" style="cursor:pointer;font-family:'Open Sans', sans-serif;font-weight:bold;text-transform:uppercase;color:#572641;transition:all 0.1s ease-in-out;padding:7px 12px;background-color:<?php
+            <a href="#" onclick="gfb_subscribe.overlay()" style="cursor:pointer;font-family:'Open Sans', sans-serif;font-weight:bold;text-transform:uppercase;color:#572641;transition:all 0.1s ease-in-out;padding:7px 12px;background-color:<?php
             if ($button_color) {
                 echo $button_color;
             } else {
@@ -159,7 +158,10 @@ class GFB_Subscribe extends WP_Widget
         $settings = woo_get_dynamic_values($settings);
         if ($settings['connect_mailchimp_list_url'] != "" && $settings['connect_newsletter_id'] == ""):?>
            <script type="text/javascript">
-             function overlay() {
+             var GFBSubscribe = function(){};
+             var gfb_subscribe = new GFBSubscribe()
+
+             GFBSubscribe.prototype.overlay = function() {
                el = document.getElementById("overlay");
                document.getElementById("gfb_response_message_success").style.display = "none";
                document.getElementById("gfb_response_message_error").style.display = "none";
@@ -168,9 +170,9 @@ class GFB_Subscribe extends WP_Widget
                el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
              }
 
-             function postData(email){
-              if(isValidEmail(email) == true){
-                console.log("isValidEmail: "+isValidEmail(email));
+             GFBSubscribe.prototype.postData = function(email){
+              if(this.isValidEmail(email) == true){
+                console.log("isValidEmail: "+this.isValidEmail(email));
                 var xmlhttp;
                 if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
                   xmlhttp=new XMLHttpRequest();
@@ -179,11 +181,11 @@ class GFB_Subscribe extends WP_Widget
                 }
 
                 xmlhttp.onreadystatechange = function(){
-                  console.log("in ready state", xmlhttp.status);
+                  // console.log("in ready state", xmlhttp.status);
                   if (xmlhttp.status == 0 || xmlhttp.status == 200)
                     {
                       var respTag = document.getElementById("gfb_response_message_success");
-                      console.log("Email: ", respTag);
+                      // console.log("Email: ", respTag);
                       respTag.innerHTML= "A confirmation email has been sent to your email address. <br/> Click the confirmation link to recieve the ebook.";
                       respTag.style.display = "block";
                       document.getElementById("gfb_intial_message").style.display = "none";
@@ -199,16 +201,16 @@ class GFB_Subscribe extends WP_Widget
 
               } else {
                 var respTag = document.getElementById("gfb_response_message_error");
-                console.log("Email: ", respTag);
+                // console.log("Email: ", respTag);
                 document.getElementById("gfb_response_message_success").style.display = "none";
 
                 respTag.innerHTML= "Valid email address required";
                 respTag.style.display = "block";
-                console.log("Not valid: "+isValidEmail(email));
+                // console.log("Not valid: "+this.isValidEmail(email));
               }
             }
 
-            function isValidEmail(entry) {
+            GFBSubscribe.prototype.isValidEmail = function(entry) {
                 return (entry.indexOf(".") > 2) && (entry.indexOf("@") > 0);
             }
 
@@ -259,7 +261,7 @@ class GFB_Subscribe extends WP_Widget
             max-width: 750px;
             min-width: 250px;
             max-height: 350px;
-            min-height: 250px;
+            min-height: 280px;
             height: 30%;
             margin: 5px auto;
             background-color: #fff;
@@ -309,7 +311,7 @@ class GFB_Subscribe extends WP_Widget
         </style>
        <div id="overlay">
         <div id="gfb_newsletter_signup_form">
-          <a class="boxclose" onclick="overlay();" id="boxclose" style=""></a>
+          <a class="boxclose" onclick="gfb_subscribe.overlay();" id="boxclose" style=""></a>
           <?php if ($m_img) {?>
             <img class="gfb_ebook_img" src="<?php echo $m_img;?>" style="float:left; width:30%;min-width:50px;max-width:200px;max-height:250px;min-height:100px;"/>
           <?php } ?>
@@ -328,7 +330,7 @@ class GFB_Subscribe extends WP_Widget
               </p>
             </center>
             <input id="gfb_subscribe_email_text" type="text" name="EMAIL" value="" placeholder="Enter your E-mail" id="mce-EMAIL" style="border:1px solid #DBDBDB;max-width:250px;min-width:60px;color:#000;margin-bottom:10px;height:27.5px;">
-            <button name="subscribe" id="mc-embedded-subscribe" class="btn submit button" type="button" onclick="postData(document.getElementById('gfb_subscribe_email_text').value)" style="background:  <?php
+            <button name="subscribe" id="mc-embedded-subscribe" class="btn submit button" type="button" onclick="gfb_subscribe.postData(document.getElementById('gfb_subscribe_email_text').value)" style="background:  <?php
             if ($button_color) {
                 echo $button_color;
             } else {
