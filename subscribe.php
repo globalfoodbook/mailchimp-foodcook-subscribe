@@ -35,7 +35,7 @@ add_action( 'wp_enqueue_scripts', 'gfb_add_to_head' );
 class GFB_MailChimp_Subscribe extends WP_Widget
 {
     var $plugin_name = 'MailChimp Subscribe For Food & Cook Theme.';
-    var $settings = array('title', 'summary', 'button_txt', 'm_title', 'm_summary', 'm_img', 'privacy_policy');
+    var $settings = array('title', 'summary', 'button_txt', 'button_color', 'm_title', 'm_summary', 'm_img', 'privacy_policy');
 
     function GFB_MailChimp_Subscribe()
     {
@@ -58,11 +58,11 @@ class GFB_MailChimp_Subscribe extends WP_Widget
             'title',
             'summary',
             'button_txt',
+            'button_color',
             'm_title',
             'm_summary',
             'm_img',
-            'privacy_policy',
-            'button_color'
+            'privacy_policy'
         ) as $setting) {
             if (!$$setting)
                 $$setting = $settings[$setting];
