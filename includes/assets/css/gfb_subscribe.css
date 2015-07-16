@@ -65,3 +65,17 @@ padding:15px;
 display: block !important;
 position: relative;
 }
+
+button#gfb_subscribe_button{
+  float: right;
+  color: #fff !important;
+}
+
+div#gfb_form_div{
+  max-width: 350px;
+  min-width: 200px;
+  text-align: center;
+}
+p#gfb_response_message_error, p#gfb_response_message_success{
+  text-align: center;
+}
