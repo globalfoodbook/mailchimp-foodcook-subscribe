@@ -1,13 +1,21 @@
 var GFBSubscribe = function(){};
 var gfb_subscribe = new GFBSubscribe();
 
+GFBSubscribe.prototype.overlay_display_status = "hidden";
+
 GFBSubscribe.prototype.overlay = function() {
-  el = document.getElementById("overlay");
+  el = document.getElementById("gfb_widget_overlay");
   document.getElementById("gfb_response_message_success").style.display = "none";
   document.getElementById("gfb_response_message_error").style.display = "none";
   document.getElementById("gfb_subscribe_email_text").value = "";
   document.getElementById("gfb_intial_message").style.display = "inline";
   el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+  this.overlay_display_status = el.style.visibility;
+
+  if (this.overlay_display_status == "visible") {
+    this.scroller(el);
+  }
+  // console.log("El visibility overlay:", this.overlay_display_status);
 }
 
 GFBSubscribe.prototype.postData = function(email, url){
@@ -55,23 +63,45 @@ GFBSubscribe.prototype.isValidEmail = function(entry) {
 }
 
 GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn) {
-  if(isNotLoggedIn) {
+  if(typeof(isNotLoggedIn)==='undefined') isNotLoggedIn = true;
+  var el = document.getElementById("gfb_widget_overlay");
+
+  if (isNotLoggedIn) {
+    this.scroller(el);
+  }
+}
+
+GFBSubscribe.prototype.scroller = function(el) {
+
+  window.onscroll = function () {
+    // console.log("El visibility:", this.overlay_display_status);
     var docBody = document.body,
     docElement = document.documentElement,
+    form_el = document.getElementById("gfb_newsletter_signup_form"),
+    vertical_position = 0,
     height
 
-    if (typeof document.height !== 'undefined') {
-        height = document.height // For webkit browsers
+    if(typeof document.height !== 'undefined') {
+      height = document.height // For webkit browsers
     } else {
-        height = Math.max( docBody.scrollHeight, docBody.offsetHeight,docElement.clientHeight, docElement.scrollHeight, docElement.offsetHeight );
+      height = Math.max( docBody.scrollHeight, docBody.offsetHeight,docElement.clientHeight, docElement.scrollHeight, docElement.offsetHeight );
     }
 
-    window.onscroll = function () {
-      if (window.pageYOffset > (height/2)){
-        if (document.getElementById("overlay").style.visibility == false ){
-          gfb_subscribe.overlay();
-        }
+    if(window.pageYOffset > (height/2)){
+      if(el.style.visibility == false ){
+        gfb_subscribe.overlay();
       }
     }
+
+    if(window.pageYOffset){
+      vertical_position = window.pageYOffset;
+    } else if(docElement.clientHeight){//ie
+      vertical_position = docElement.scrollTop;
+    } else if(docBody){//ie quirks
+      vertical_position = docBody.scrollTop;
+    }
+
+    form_el.style.top = vertical_position + 'px';
+    // console.log("Now:", form_el.style.top );
   }
 }
