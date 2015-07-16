@@ -10,7 +10,7 @@ GFBSubscribe.prototype.overlay = function() {
   el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
 }
 
-GFBSubscribe.prototype.postData = function(email){
+GFBSubscribe.prototype.postData = function(email, url){
  if(this.isValidEmail(email) == true){
    // console.log("isValidEmail: "+this.isValidEmail(email));
    var xmlhttp;
@@ -35,7 +35,7 @@ GFBSubscribe.prototype.postData = function(email){
        }
      }
 
-   xmlhttp.open("POST","<?php echo $settings['connect_mailchimp_list_url']; ?>",true);
+   xmlhttp.open("POST",url,true);
    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
    xmlhttp.send("EMAIL="+email);
 
