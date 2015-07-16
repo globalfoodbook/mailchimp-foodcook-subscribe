@@ -180,31 +180,12 @@ class GFB_MailChimp_Subscribe extends WP_Widget
         $settings = woo_get_dynamic_values($settings);
         if ($settings['connect_mailchimp_list_url'] != "" && $settings['connect_newsletter_id'] == ""):?>
           <script type="text/javascript">
-            if(<?php
+            gfb_subscribe.scrollManager(<?php
                if (is_user_logged_in()) {
-                   echo "true";
-               } else {
                    echo "false";
-               }?>) {
-            }else{
-             var docBody = document.body,
-             docElement = document.documentElement,
-             height
-
-             if (typeof document.height !== 'undefined') {
-                 height = document.height // For webkit browsers
-             } else {
-                 height = Math.max( docBody.scrollHeight, docBody.offsetHeight,docElement.clientHeight, docElement.scrollHeight, docElement.offsetHeight );
-             }
-
-             window.onscroll = function () {
-               if (window.pageYOffset > (height/2)){
-                 if (document.getElementById("overlay").style.visibility == false ){
-                   gfb_subscribe.overlay();
-                 }
-               }
-             }
-            }
+               } else {
+                   echo "true";
+               }?>)
           </script>
           <div id="overlay">
             <div id="gfb_newsletter_signup_form">
