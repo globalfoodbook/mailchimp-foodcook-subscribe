@@ -13,7 +13,7 @@ GFBSubscribe.prototype.overlay = function() {
   this.overlay_display_status = el.style.visibility;
 
   if (this.overlay_display_status == "visible") {
-    this.scroller(el);
+    this.scroller();
   }
   // console.log("El visibility overlay:", this.overlay_display_status);
 }
@@ -64,14 +64,13 @@ GFBSubscribe.prototype.isValidEmail = function(entry) {
 
 GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn) {
   if(typeof(isNotLoggedIn)==='undefined') isNotLoggedIn = true;
-  var el = document.getElementById("gfb_widget_overlay");
-
+  
   if (isNotLoggedIn) {
-    this.scroller(el);
+    this.scroller();
   }
 }
 
-GFBSubscribe.prototype.scroller = function(el) {
+GFBSubscribe.prototype.scroller = function() {
   var _this = this;
 
   window.onscroll = function () {
