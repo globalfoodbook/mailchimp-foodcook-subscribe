@@ -19,6 +19,8 @@ GFBSubscribe.prototype.overlay = function() {
 }
 
 GFBSubscribe.prototype.postData = function(email, url){
+ var _this = this;
+
  if(this.isValidEmail(email) == true){
    // console.log("isValidEmail: "+this.isValidEmail(email));
    var xmlhttp;
@@ -39,7 +41,7 @@ GFBSubscribe.prototype.postData = function(email, url){
          document.getElementById("gfb_intial_message").style.display = "none";
          document.getElementById("gfb_response_message_error").style.display = "none";
 
-         setTimeout(function(){ gfb_subscribe.overlay(); }, 15000);
+         setTimeout(function(){ _this.overlay(); }, 15000);
        }
      }
 
@@ -64,7 +66,7 @@ GFBSubscribe.prototype.isValidEmail = function(entry) {
 
 GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn) {
   if(typeof(isNotLoggedIn)==='undefined') isNotLoggedIn = true;
-  
+
   if (isNotLoggedIn) {
     this.scroller();
   }
@@ -89,7 +91,7 @@ GFBSubscribe.prototype.scroller = function() {
 
     if(window.pageYOffset > (height/2)){
       if(_this.overlay_display_status == 'hidden' ){
-        gfb_subscribe.overlay();
+        _this.overlay();
       }
     }
 
