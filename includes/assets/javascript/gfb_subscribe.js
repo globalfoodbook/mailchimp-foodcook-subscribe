@@ -1,5 +1,4 @@
 var GFBSubscribe = function(){};
-var gfb_subscribe = new GFBSubscribe();
 
 GFBSubscribe.prototype.overlay_display_status = "hidden";
 
@@ -13,12 +12,14 @@ GFBSubscribe.prototype.overlay = function() {
   this.overlay_display_status = el.style.visibility;
 
   if (this.overlay_display_status == "visible") {
-    this.scroller(el);
+    this.scroller();
   }
   // console.log("El visibility overlay:", this.overlay_display_status);
 }
 
 GFBSubscribe.prototype.postData = function(email, url){
+ var _this = this;
+
  if(this.isValidEmail(email) == true){
    // console.log("isValidEmail: "+this.isValidEmail(email));
    var xmlhttp;
@@ -39,7 +40,7 @@ GFBSubscribe.prototype.postData = function(email, url){
          document.getElementById("gfb_intial_message").style.display = "none";
          document.getElementById("gfb_response_message_error").style.display = "none";
 
-         setTimeout(function(){ gfb_subscribe.overlay(); }, 15000);
+         setTimeout(function(){ _this.overlay(); }, 15000);
        }
      }
 
@@ -64,14 +65,14 @@ GFBSubscribe.prototype.isValidEmail = function(entry) {
 
 GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn) {
   if(typeof(isNotLoggedIn)==='undefined') isNotLoggedIn = true;
-  var el = document.getElementById("gfb_widget_overlay");
 
   if (isNotLoggedIn) {
-    this.scroller(el);
+    this.scroller();
   }
 }
 
-GFBSubscribe.prototype.scroller = function(el) {
+GFBSubscribe.prototype.scroller = function() {
+  var _this = this;
 
   window.onscroll = function () {
     // console.log("El visibility:", this.overlay_display_status);
@@ -88,8 +89,8 @@ GFBSubscribe.prototype.scroller = function(el) {
     }
 
     if(window.pageYOffset > (height/2)){
-      if(el.style.visibility == false ){
-        gfb_subscribe.overlay();
+      if(_this.overlay_display_status == 'hidden' ){
+        _this.overlay();
       }
     }
 
@@ -105,3 +106,5 @@ GFBSubscribe.prototype.scroller = function(el) {
     // console.log("Now:", form_el.style.top );
   }
 }
+
+var gfb_subscribe = new GFBSubscribe();
