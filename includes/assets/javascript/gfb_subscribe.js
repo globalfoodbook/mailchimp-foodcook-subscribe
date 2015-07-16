@@ -1,5 +1,4 @@
 var GFBSubscribe = function(){};
-var gfb_subscribe = new GFBSubscribe();
 
 GFBSubscribe.prototype.overlay_display_status = "hidden";
 
@@ -107,3 +106,5 @@ GFBSubscribe.prototype.scroller = function() {
     // console.log("Now:", form_el.style.top );
   }
 }
+
+var gfb_subscribe = new GFBSubscribe();
