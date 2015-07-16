@@ -53,3 +53,25 @@ GFBSubscribe.prototype.postData = function(email, url){
 GFBSubscribe.prototype.isValidEmail = function(entry) {
    return (entry.indexOf(".") > 2) && (entry.indexOf("@") > 0);
 }
+
+GFBSubscribe.prototype.scrollManager = function(isLoggedin) {
+  if(isLoggedin) {
+    var docBody = document.body,
+    docElement = document.documentElement,
+    height
+
+    if (typeof document.height !== 'undefined') {
+        height = document.height // For webkit browsers
+    } else {
+        height = Math.max( docBody.scrollHeight, docBody.offsetHeight,docElement.clientHeight, docElement.scrollHeight, docElement.offsetHeight );
+    }
+
+    window.onscroll = function () {
+      if (window.pageYOffset > (height/2)){
+        if (document.getElementById("overlay").style.visibility == false ){
+          gfb_subscribe.overlay();
+        }
+      }
+    }
+  }
+}
