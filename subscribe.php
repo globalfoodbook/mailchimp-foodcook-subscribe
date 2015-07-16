@@ -15,15 +15,30 @@ Author URI: http://ikennaokpala.com/
 if (!empty($_SERVER['SCRIPT_FILENAME']) && basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
     die('You do not have sufficient permissions to access this page');
 }
+
+// Enqueue script and styles
+if ( !function_exists( 'gfb_add_to_head' ) ):
+  function gfb_add_to_head() {
+     wp_register_script( 'add-gfb-sub-js', plugin_dir_url( __FILE__ ) . '/includes/assets/javascript/gfb_subscribe.js', '', null,''  );
+     wp_register_style( 'add-gfb-sub-css', plugin_dir_url( __FILE__ ) . '/includes/assets/css/gfb_subscribe.css','','', 'screen' );
+     wp_enqueue_script( 'add-gfb-sub-js' );
+     wp_enqueue_style( 'add-gfb-sub-css' );
+
+  }
+endif;
+
+add_action( 'wp_enqueue_scripts', 'gfb_add_to_head' );
+
+
 /*---------------------------------------------------------------------------------*/
 /* GFB Newsletter Subscribe widget */
 /*---------------------------------------------------------------------------------*/
 
-class GFB_Subscribe extends WP_Widget
+class GFB_MailChimp_Subscribe extends WP_Widget
 {
     var $settings = array('title', 'summary', 'button_txt', 'm_title', 'm_summary', 'm_img', 'privacy_policy');
 
-    function GFB_Subscribe()
+    function GFB_MailChimp_Subscribe()
     {
         $widget_ops = array(
             'classname' => 'gfb_subscribe',
@@ -157,197 +172,72 @@ class GFB_Subscribe extends WP_Widget
         );
         $settings = woo_get_dynamic_values($settings);
         if ($settings['connect_mailchimp_list_url'] != "" && $settings['connect_newsletter_id'] == ""):?>
-           <script type="text/javascript">
-             var GFBSubscribe = function(){};
-             var gfb_subscribe = new GFBSubscribe()
+          <script type="text/javascript">
+            if(<?php
+               if (is_user_logged_in()) {
+                   echo "true";
+               } else {
+                   echo "false";
+               }?>) {
+            }else{
+             var docBody = document.body,
+             docElement = document.documentElement,
+             height
 
-             GFBSubscribe.prototype.overlay = function() {
-               el = document.getElementById("overlay");
-               document.getElementById("gfb_response_message_success").style.display = "none";
-               document.getElementById("gfb_response_message_error").style.display = "none";
-               document.getElementById("gfb_subscribe_email_text").value = "";
-               document.getElementById("gfb_intial_message").style.display = "inline";
-               el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+             if (typeof document.height !== 'undefined') {
+                 height = document.height // For webkit browsers
+             } else {
+                 height = Math.max( docBody.scrollHeight, docBody.offsetHeight,docElement.clientHeight, docElement.scrollHeight, docElement.offsetHeight );
              }
 
-             GFBSubscribe.prototype.postData = function(email){
-              if(this.isValidEmail(email) == true){
-                // console.log("isValidEmail: "+this.isValidEmail(email));
-                var xmlhttp;
-                if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-                  xmlhttp=new XMLHttpRequest();
-                } else {// code for IE6, IE5
-                  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-                }
-
-                xmlhttp.onreadystatechange = function(){
-                  // console.log("in ready state", xmlhttp.status);
-                  if (xmlhttp.status == 0 || xmlhttp.status == 200)
-                    {
-                      var respTag = document.getElementById("gfb_response_message_success");
-                      // console.log("Email: ", respTag);
-                      respTag.innerHTML= "A confirmation email has been sent to your email address. <br/> Click the confirmation link to recieve the ebook.";
-                      respTag.style.display = "block";
-                      document.getElementById("gfb_intial_message").style.display = "none";
-                      document.getElementById("gfb_response_message_error").style.display = "none";
-
-                      setTimeout(function(){ gfb_subscribe.overlay(); }, 15000);
-                    }
-                  }
-
-                xmlhttp.open("POST","<?php echo $settings['connect_mailchimp_list_url']; ?>",true);
-                xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-                xmlhttp.send("EMAIL="+email);
-
-              } else {
-                var respTag = document.getElementById("gfb_response_message_error");
-                // console.log("Email: ", respTag);
-                document.getElementById("gfb_response_message_success").style.display = "none";
-
-                respTag.innerHTML= "Valid email address required";
-                respTag.style.display = "block";
-                // console.log("Not valid: "+this.isValidEmail(email));
-              }
+             window.onscroll = function () {
+               if (window.pageYOffset > (height/2)){
+                 if (document.getElementById("overlay").style.visibility == false ){
+                   gfb_subscribe.overlay();
+                 }
+               }
+             }
             }
-
-            GFBSubscribe.prototype.isValidEmail = function(entry) {
-                return (entry.indexOf(".") > 2) && (entry.indexOf("@") > 0);
-            }
-
-            if(<?php
-                if (is_user_logged_in()) {
-                    echo "true";
+          </script>
+          <div id="overlay">
+            <div id="gfb_newsletter_signup_form">
+              <a class="boxclose" onclick="gfb_subscribe.overlay();" id="boxclose" style=""></a>
+              <?php if ($m_img) {?>
+                <img class="gfb_ebook_img" src="<?php echo $m_img;?>" style="float:left; width:30%;min-width:50px;max-width:200px;max-height:250px;min-height:100px;"/>
+              <?php } ?>
+              <div id="" style="<?php
+                if ($m_img) {
+                    echo 'float:right;width:70%; border:0;';
                 } else {
-                    echo "false";
-                }?>) {
-            }else{
-              var docBody = document.body,
-              docElement = document.documentElement,
-              height
-
-              if (typeof document.height !== 'undefined') {
-                  height = document.height // For webkit browsers
-              } else {
-                  height = Math.max( docBody.scrollHeight, docBody.offsetHeight,docElement.clientHeight, docElement.scrollHeight, docElement.offsetHeight );
-              }
-
-              window.onscroll = function () {
-                if (window.pageYOffset > (height/2)){
-                  if (document.getElementById("overlay").style.visibility == false ){
-                    gfb_subscribe.overlay();
-                  }
-                }
-              }
-            }
-           </script>
-        <style>
-          #overlay {
-            visibility: hidden;
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            right: 0px;
-            bottom: 0px;
-            margin: auto;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            z-index: 10000;
-            background-color: rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
-            text-align: center;
-          }
-          #overlay div#gfb_newsletter_signup_form {
-            max-width: 750px;
-            min-width: 250px;
-            max-height: 600px;
-            min-height: 280px;
-            height: 30%;
-            margin: 5px auto;
-            background-color: #fff;
-            border: 1px solid #000;
-            padding: 20px;
-            text-align: center;
-            position: absolute;
-          }
-          a.boxclose{
-             float:right;
-             position:absolute;
-             top:-10px;
-             right:-10px;
-             cursor:pointer;
-             color: #fff;
-             border: 1px solid #AEAEAE;
-             border-radius: 30px;
-             background: #605F61;
-             font-size: 17px;
-             display: inline-block;
-             line-height: 0px;
-             /*padding: 11px 7px 17px 7px;*/
-             padding: 11px 8px 15px;
-           }
-         .boxclose:before {
-             content: "x";
-         }
-         .gfb_ebook_img {
-           display: block;
-           clear: both;
-           position: relative;
-         }
-         #gfb_newsletter_signup_form  h1 {
-           font-family: "Open Sans",Arial,Helvetica,sans-serif;
-           display: block;
-           font-size: 30px;
-           font-weight: bold;
-           color: #333;
-           padding: 0px 10px;
-           text-align: center;
-         }
-         div#p-footer {
-          padding:15px;
-          display: block !important;
-          position: relative;
-         }
-        </style>
-       <div id="overlay">
-        <div id="gfb_newsletter_signup_form">
-          <a class="boxclose" onclick="gfb_subscribe.overlay();" id="boxclose" style=""></a>
-          <?php if ($m_img) {?>
-            <img class="gfb_ebook_img" src="<?php echo $m_img;?>" style="float:left; width:30%;min-width:50px;max-width:200px;max-height:250px;min-height:100px;"/>
-          <?php } ?>
-          <div id="" style="<?php
-            if ($m_img) {
-                echo 'float:right;width:70%; border:0;';
-            } else {
-                echo 'width:100%;border:0;';
-            }?>">
-            <h1><?php echo $m_title;?></h1>
-            <center>
-              <p id="gfb_response_message_success" style="display:none;font-size:14px;font-weight:bold!important;color:#009933 !important;"></p>
-              <p id="gfb_response_message_error" style="display:none;font-size:14px;font-weight:bold!important;color:#FF0000 !important;"></p>
-              <p id="gfb_intial_message" style='max-width:350px;min-width:150px;margin-top:5px;padding:0;font-size:14px;'>
-                <?php echo $m_summary;?>
-              </p>
-            </center>
-            <input id="gfb_subscribe_email_text" type="text" name="EMAIL" value="" placeholder="Enter your E-mail" id="mce-EMAIL" style="border:1px solid #DBDBDB;max-width:250px;min-width:60px;color:#000;margin-bottom:10px;height:27.5px;">
-            <button name="subscribe" id="mc-embedded-subscribe" class="btn submit button" type="button" onclick="gfb_subscribe.postData(document.getElementById('gfb_subscribe_email_text').value)" style="background:  <?php
-            if ($button_color) {
-                echo $button_color;
-            } else {
-                echo '#512D8C';
-            }?> none repeat scroll 0%" ><?php _e('Sign Up', 'woothemes');?></button>
-            <div id="p-footer"><b> Privacy Policy: <?php
-            if ($privacy_policy) {
-                echo $privacy_policy;
-            } else {
-                echo "We dislike SPAM E-Mail. We pledge to keep your email address safe.";
-            }?></b></div>
+                    echo 'width:100%;border:0;';
+                }?>">
+                <h1><?php echo $m_title;?></h1>
+                <center>
+                  <p id="gfb_response_message_success" style="display:none;font-size:14px;font-weight:bold!important;color:#009933 !important;"></p>
+                  <p id="gfb_response_message_error" style="display:none;font-size:14px;font-weight:bold!important;color:#FF0000 !important;"></p>
+                  <p id="gfb_intial_message" style='max-width:350px;min-width:150px;margin-top:5px;padding:0;font-size:14px;'>
+                    <?php echo $m_summary;?>
+                  </p>
+                </center>
+                <input id="gfb_subscribe_email_text" type="text" name="EMAIL" value="" placeholder="Enter your E-mail" id="mce-EMAIL" style="border:1px solid #DBDBDB;max-width:250px;min-width:60px;color:#000;margin-bottom:10px;height:27.5px;">
+                <button name="subscribe" id="mc-embedded-subscribe" class="btn submit button" type="button" onclick="gfb_subscribe.postData(document.getElementById('gfb_subscribe_email_text').value)" style="background:  <?php
+                if ($button_color) {
+                    echo $button_color;
+                } else {
+                    echo '#512D8C';
+                }?> none repeat scroll 0%" ><?php _e('Sign Up', 'woothemes');?></button>
+                <div id="p-footer"><b> Privacy Policy: <?php
+                if ($privacy_policy) {
+                    echo $privacy_policy;
+                } else {
+                    echo "We dislike SPAM E-Mail. We pledge to keep your email address safe.";
+                }?></b></div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
      <?php
-        endif;
+      endif;
     }
 }
-add_action('widgets_init', create_function('', 'return register_widget("GFB_Subscribe");'), 1);
+add_action('widgets_init', create_function('', 'return register_widget("GFB_MailChimp_Subscribe");'), 1);
 ?>
