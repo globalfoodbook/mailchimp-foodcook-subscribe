@@ -191,7 +191,7 @@ class GFB_Subscribe extends WP_Widget
                       document.getElementById("gfb_intial_message").style.display = "none";
                       document.getElementById("gfb_response_message_error").style.display = "none";
 
-                      setTimeout(function(){ overlay(); }, 15000);
+                      setTimeout(function(){ gfb_subscribe.overlay(); }, 15000);
                     }
                   }
 
@@ -234,7 +234,7 @@ class GFB_Subscribe extends WP_Widget
               window.onscroll = function () {
                 if (window.pageYOffset > (height/2)){
                   if (document.getElementById("overlay").style.visibility == false ){
-                      overlay();
+                    gfb_subscribe.overlay();
                   }
                 }
               }
@@ -260,7 +260,7 @@ class GFB_Subscribe extends WP_Widget
           #overlay div#gfb_newsletter_signup_form {
             max-width: 750px;
             min-width: 250px;
-            max-height: 350px;
+            max-height: 600px;
             min-height: 280px;
             height: 30%;
             margin: 5px auto;
