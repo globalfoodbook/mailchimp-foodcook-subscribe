@@ -172,7 +172,7 @@ class GFB_Subscribe extends WP_Widget
 
              GFBSubscribe.prototype.postData = function(email){
               if(this.isValidEmail(email) == true){
-                console.log("isValidEmail: "+this.isValidEmail(email));
+                // console.log("isValidEmail: "+this.isValidEmail(email));
                 var xmlhttp;
                 if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
                   xmlhttp=new XMLHttpRequest();
