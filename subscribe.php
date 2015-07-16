@@ -187,7 +187,7 @@ class GFB_MailChimp_Subscribe extends WP_Widget
                    echo "true";
                }?>)
           </script>
-          <div id="overlay">
+          <div id="gfb_widget_overlay">
             <div id="gfb_newsletter_signup_form">
               <a class="boxclose" onclick="gfb_subscribe.overlay();" id="boxclose" style=""></a>
               <?php if ($m_img) {?>
