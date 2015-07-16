@@ -72,6 +72,7 @@ GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn) {
 }
 
 GFBSubscribe.prototype.scroller = function(el) {
+  var _this = this;
 
   window.onscroll = function () {
     // console.log("El visibility:", this.overlay_display_status);
@@ -88,7 +89,7 @@ GFBSubscribe.prototype.scroller = function(el) {
     }
 
     if(window.pageYOffset > (height/2)){
-      if(el.style.visibility == false ){
+      if(_this.overlay_display_status == 'hidden' ){
         gfb_subscribe.overlay();
       }
     }
