@@ -97,9 +97,7 @@ class GFB_MailChimp_Subscribe extends WP_Widget
           </center>
           <?php
           $this->subscribe_form($m_title, $m_summary, $m_img, $privacy_policy, $button_color);
-        } else{
-          echo "<p style='color:red;'>This plugin (". $this->plugin_name.") requires a theme built with wootheme framework to work properly</p>";
-        }
+        } else{ $this->dependency_message();  }
         echo $after_widget;
     }
     function update($new_instance, $old_instance)
@@ -122,49 +120,55 @@ class GFB_MailChimp_Subscribe extends WP_Widget
 
     function form($instance)
     {
+      if (function_exists('woo_get_dynamic_values')){
         $instance = wp_parse_args($instance, $this->woo_get_settings());
-        extract($instance, EXTR_SKIP);?>
-		<p>
-		   <label for="<?php echo $this->get_field_id('title');?>"><?php _e('Title (optional):', 'woothemes');?></label>
-		   <input type="text" name="<?php echo $this->get_field_name('title');?>"  value="<?php echo esc_attr($title);?>" class="widefat" id="<?php echo $this->get_field_id('title');?>" />
-		</p>
-		<p>
-		   <label for="<?php echo $this->get_field_id('summary'); ?>"><?php _e('Summary (optional):', 'woothemes');?></label>
-			<textarea name="<?php echo $this->get_field_name('summary'); ?>" class="widefat" id="<?php echo $this->get_field_id('summary'); ?>"><?php echo esc_textarea($summary);?></textarea>
-		</p>
-		<p>
-		   <label for="<?php echo $this->get_field_id('button_txt'); ?>"><?php _e('Button Text (optional):', 'woothemes');?></label>
-       <input type="text" name="<?php echo $this->get_field_name('button_txt'); ?>"  value="<?php echo esc_attr($button_txt); ?>" class="widefat" id="<?php echo $this->get_field_id('button_txt'); ?>" placeholder="Default text is Subscribe via Email" />
-	  </p>
-		<p>
-		   <label for="<?php echo $this->get_field_id('button_color'); ?>"><?php
-        _e('Button Color:', 'woothemes');
-?></label>
-       <input type="text" name="<?php echo $this->get_field_name('button_color'); ?>"  value="<?php echo esc_attr($button_color); ?>" class="widefat" id="<?php echo $this->get_field_id('button_color'); ?>" placeholder="For hex colors don't forget to add #."/>
-	  </p>
-		<p>
-		   <label for="<?php echo $this->get_field_id('m_title'); ?>"><?php
-        _e('Popup Title:', 'woothemes');
-?></label>
-       <input type="text" name="<?php echo $this->get_field_name('m_title'); ?>"  value="<?php echo esc_attr($m_title); ?>" class="widefat" id="<?php echo $this->get_field_id('m_title'); ?>"/>
-	  </p>
-		<p>
-		   <label for="<?php echo $this->get_field_id('m_summary'); ?>"><?php
-        _e('Popup Summary:', 'woothemes');
-?></label>
-			<textarea name="<?php echo $this->get_field_name('m_summary'); ?>" class="widefat" id="<?php echo $this->get_field_id('m_summary'); ?>"><?php echo esc_textarea($m_summary); ?></textarea>
-		</p>
-		<p>
-		   <label for="<?php echo $this->get_field_id('m_img'); ?>"><?php
-        _e('Popup Image URL:', 'woothemes');
-?></label>
-       <input type="text" name="<?php echo $this->get_field_name('m_img'); ?>"  value="<?php echo esc_attr($m_img); ?>" class="widefat" id="<?php echo $this->get_field_id('m_img'); ?>"/>
-	  </p>
-		<p>
-		   <label for="<?php echo $this->get_field_id('privacy_policy'); ?>"><?php _e('Privacy Policy:', 'woothemes'); ?></label>
-       <input type="text" name="<?php echo $this->get_field_name('privacy_policy'); ?>"  value="<?php echo esc_attr($privacy_policy); ?>" class="widefat" id="<?php echo $this->get_field_id('privacy_policy'); ?>" placeholder="Set to override default"/>
-	  </p>
+        extract($instance, EXTR_SKIP);
+
+        ?>
+    		<p>
+    		   <label for="<?php echo $this->get_field_id('title');?>"><?php _e('Title (optional):', 'woothemes');?></label>
+    		   <input type="text" name="<?php echo $this->get_field_name('title');?>"  value="<?php echo esc_attr($title);?>" class="widefat" id="<?php echo $this->get_field_id('title');?>" />
+    		</p>
+    		<p>
+    		   <label for="<?php echo $this->get_field_id('summary'); ?>"><?php _e('Summary (optional):', 'woothemes');?></label>
+    			<textarea name="<?php echo $this->get_field_name('summary'); ?>" class="widefat" id="<?php echo $this->get_field_id('summary'); ?>"><?php echo esc_textarea($summary);?></textarea>
+    		</p>
+    		<p>
+    		   <label for="<?php echo $this->get_field_id('button_txt'); ?>"><?php _e('Button Text (optional):', 'woothemes');?></label>
+           <input type="text" name="<?php echo $this->get_field_name('button_txt'); ?>"  value="<?php echo esc_attr($button_txt); ?>" class="widefat" id="<?php echo $this->get_field_id('button_txt'); ?>" placeholder="Default text is Subscribe via Email" />
+    	  </p>
+    		<p>
+    		   <label for="<?php echo $this->get_field_id('button_color'); ?>"><?php
+            _e('Button Color:', 'woothemes');
+    ?></label>
+           <input type="text" name="<?php echo $this->get_field_name('button_color'); ?>"  value="<?php echo esc_attr($button_color); ?>" class="widefat" id="<?php echo $this->get_field_id('button_color'); ?>" placeholder="For hex colors don't forget to add #."/>
+    	  </p>
+    		<p>
+    		   <label for="<?php echo $this->get_field_id('m_title'); ?>"><?php
+            _e('Popup Title:', 'woothemes');
+    ?></label>
+           <input type="text" name="<?php echo $this->get_field_name('m_title'); ?>"  value="<?php echo esc_attr($m_title); ?>" class="widefat" id="<?php echo $this->get_field_id('m_title'); ?>"/>
+    	  </p>
+    		<p>
+    		   <label for="<?php echo $this->get_field_id('m_summary'); ?>"><?php
+            _e('Popup Summary:', 'woothemes');
+    ?></label>
+    			<textarea name="<?php echo $this->get_field_name('m_summary'); ?>" class="widefat" id="<?php echo $this->get_field_id('m_summary'); ?>"><?php echo esc_textarea($m_summary); ?></textarea>
+    		</p>
+    		<p>
+    		   <label for="<?php echo $this->get_field_id('m_img'); ?>"><?php
+            _e('Popup Image URL:', 'woothemes');
+    ?></label>
+           <input type="text" name="<?php echo $this->get_field_name('m_img'); ?>"  value="<?php echo esc_attr($m_img); ?>" class="widefat" id="<?php echo $this->get_field_id('m_img'); ?>"/>
+    	  </p>
+    		<p>
+    		   <label for="<?php echo $this->get_field_id('privacy_policy'); ?>"><?php _e('Privacy Policy:', 'woothemes'); ?></label>
+           <input type="text" name="<?php echo $this->get_field_name('privacy_policy'); ?>"  value="<?php echo esc_attr($privacy_policy); ?>" class="widefat" id="<?php echo $this->get_field_id('privacy_policy'); ?>" placeholder="Set to override default"/>
+    	  </p>
 		<?php
+      } else {
+        $this->dependency_message();
+      }
     }
     function subscribe_form($m_title, $m_summary, $m_img, $privacy_policy, $button_color)
     {
@@ -240,6 +244,10 @@ class GFB_MailChimp_Subscribe extends WP_Widget
           </div>
      <?php
       endif;
+    }
+
+    function dependency_message(){
+      echo "<p style='color:red;'>This plugin (". $this->plugin_name.") requires a theme built with wootheme framework to work properly</p>";
     }
 }
 add_action('widgets_init', create_function('', 'return register_widget("GFB_MailChimp_Subscribe");'), 1);
