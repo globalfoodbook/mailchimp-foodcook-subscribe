@@ -1,4 +1,4 @@
-#overlay {
+#gfb_widget_overlay {
   visibility: hidden;
   position: absolute;
   left: 0px;
@@ -14,7 +14,7 @@
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
   text-align: center;
 }
-#overlay div#gfb_newsletter_signup_form {
+#gfb_widget_overlay div#gfb_newsletter_signup_form {
   max-width: 750px;
   min-width: 250px;
   max-height: 600px;
