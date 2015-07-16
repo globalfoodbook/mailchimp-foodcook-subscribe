@@ -54,8 +54,8 @@ GFBSubscribe.prototype.isValidEmail = function(entry) {
    return (entry.indexOf(".") > 2) && (entry.indexOf("@") > 0);
 }
 
-GFBSubscribe.prototype.scrollManager = function(isNotLoggedin) {
-  if(isNotLoggedin) {
+GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn) {
+  if(isNotLoggedIn) {
     var docBody = document.body,
     docElement = document.documentElement,
     height
