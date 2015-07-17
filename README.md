@@ -61,6 +61,13 @@ Yes. only the urls can be accepted.
 
 == Arbitrary section ==
 
+= Adding Screenshots to the wordpress repo =
+
+1. Rename each screenshot for each step like this. For step 1 the screenshot is screenshot-1.png.
+2. The banner image is named as banner-772x250.png.
+3. Use an SVN client like smart svn or rapid svn etc to uploads these iamges to the /assets folder.
+4. After this commit and all will be picked up.
+
 = Contributing =
 
 If you would like to contribute to our suite of plugins, head on over to [Global Food Book Labs](https://github.com/globalfoodbook). Feel free to fork and contribute back.
