@@ -7,7 +7,7 @@ Stable tag: 1
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
-This is a plugin to allow easy setup and customization of a website's newsletter subscription widget and modal popup. It is best used with food and cook recipe theme made with woo themes.
+This make easy, the setup of a website's newsletter subscription widget and modal popup. Best used in food and cook recipe theme or woothemes.
 
 == Description ==
 This plugin provides a modal popup to convert visitors to your food-cook website into subscribers and in effect to take action like product discount or coupon etc.
