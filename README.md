@@ -28,6 +28,14 @@ It is implemented to allow easy setup and customization of a website's newslette
 
 == Frequently Asked Questions ==
 
+= Can I add/modify titles and summaries in the popup and widget area? =
+
+Yes. Simple go to the widget menu in the admin, select this plugin and modify appropriately.
+
+= Can I add an Image? =
+
+Yes. only the urls can be accepted.
+
 = Is the button text changeable? =
 
  Yes.
@@ -36,11 +44,10 @@ It is implemented to allow easy setup and customization of a website's newslette
 
  Yes.
 
-= Can I add an Image? =
-
- Yes. only the urls can be accepted.
-
 == Screenshots ==
+
+1. Edit the widget within the admin widget area.
+2. Click the subscribe button and the modal popup will appear.
 
 == Changelog ==
 
@@ -56,7 +63,9 @@ It is implemented to allow easy setup and customization of a website's newslette
 
 = Contributing =
 
-1. Fork it ( https://github.com/[my-github-username]/mailchimp-foodcook-subscribe )
+If you would like to contribute to our suite of plugins, head on over to [Global Food Book Labs](https://github.com/globalfoodbook). Feel free to fork and contribute back.
+
+1. Fork it (https://github.com/globalfoodbook/mailchimp-foodcook-subscribe)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -81,11 +90,11 @@ It is implemented to allow easy setup and customization of a website's newslette
           `git svn fetch svn`
           `git checkout -b svn git-svn`
           `git merge master`
-          `git svn dcommit`
+          `git svn dcommit --username [wordpress.org username]`
 
 6. Then rebase that branch to the master, and you can dcommit from the master to svn
 
           `git checkout master`
           `git rebase svn`
           `git branch -d svn`
-          `git svn dcommit`
+          `git svn dcommit --username [wordpress.org username]`
