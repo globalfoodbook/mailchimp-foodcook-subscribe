@@ -1,4 +1,4 @@
-=== mailchimp food-cook subscribe ===
+# Mailchimp Food-Cook Subscribe
 Contributors: (kengimel)
 Tags: newsletter, food-cook, recipe plugin, mailchimp
 Requires at least: 3.0.1
@@ -9,7 +9,7 @@ License URI: http://opensource.org/licenses/MIT
 
 This make easy, the setup of a website's newsletter subscription widget and modal popup. Best used in food and cook recipe theme or woothemes.
 
-== Description ==
+## Description
 This plugin provides a modal popup to convert visitors to your food-cook website into subscribers and in effect to take action like product discount or coupon etc.
 
 This plugin is an extract from [globalfoodbook.com](http://globalfoodbook.com).
@@ -21,54 +21,54 @@ For more details. This plugin is built to help other [food-cook](http://themefor
 It is implemented to allow easy setup and customization of a website's newsletter subscription widget and modal popup. It is best used with food and cook recipe theme made with woo themes.
 
 
-== Installation ==
+## Installation
 
 1. Upload /mailchimp-woothemes-subscribe to the /wp-content/plugins directory
 2. Activate the plugin through the Plugins menu in WordPress
 
-== Frequently Asked Questions ==
+## Frequently Asked Questions
 
-= Can I add/modify titles and summaries in the popup and widget area? =
+### Can I add/modify titles and summaries in the popup and widget area?
 
 Yes. Simple go to the widget menu in the admin, select this plugin and modify appropriately.
 
-= Can I add an Image? =
+### Can I add an Image?
 
 Yes. only the urls can be accepted.
 
-= Is the button text changeable? =
+### Is the button text changeable?
 
  Yes.
 
-= Is the button color changeable? =
+### Is the button color changeable?
 
  Yes.
 
-== Screenshots ==
+### Screenshots
 
 1. Edit the widget within the admin widget area.
 2. Click the subscribe button and the modal popup will appear.
 
-== Changelog ==
+### Changelog
 
-= 1.0 =
+### 1.0
 * Initial Release
 
-== Upgrade Notice ==
+### Upgrade Notice
 
-= 1 =
+### 1
 * Initial Release
 
-== Arbitrary section ==
+### Arbitrary section
 
-= Adding Screenshots to the wordpress repo =
+#### Adding Screenshots to the wordpress repo
 
 1. Rename each screenshot for each step like this. For step 1 the screenshot is screenshot-1.png.
 2. The banner image is named as banner-772x250.png.
 3. Use an SVN client like smart svn or rapid svn etc to uploads these iamges to the /assets folder.
 4. After this commit and all will be picked up.
 
-= Contributing =
+#### Contributing
 
 If you would like to contribute to our suite of plugins, head on over to [Global Food Book Labs](https://github.com/globalfoodbook). Feel free to fork and contribute back.
 
@@ -78,7 +78,7 @@ If you would like to contribute to our suite of plugins, head on over to [Global
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-= Pushing plugin to wordpress svn repo =
+#### Pushing plugin to wordpress svn repo
 
 1. Clone this repo
 
