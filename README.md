@@ -64,14 +64,7 @@ Yes. only the urls can be accepted.
 ### 1.1
 * Add option to disable or enable modal popup
 
-## Arbitrary section
-
-#### Adding Screenshots to the wordpress repo
-
-1. Rename each screenshot for each step like this. For step 1 the screenshot is screenshot-1.png.
-2. The banner image is named as banner-772x250.png.
-3. Use an SVN client like smart svn or rapid svn etc to uploads these iamges to the /assets folder.
-4. After this commit and all will be picked up.
+## Notes to developers
 
 #### Contributing
 
@@ -82,6 +75,13 @@ If you would like to contribute to our suite of plugins, head on over to [Global
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+#### Adding Screenshots to the wordpress repo
+
+1. Rename each screenshot for each step like this. For step 1 the screenshot is screenshot-1.png.
+2. The banner image is named as banner-772x250.png.
+3. Use an SVN client like smart svn or rapid svn etc to uploads these iamges to the /assets folder.
+4. After this commit and all will be picked up.
 
 #### Pushing plugin to wordpress svn repo
 
