@@ -105,7 +105,7 @@ GFBSubscribe.prototype.scroller = function() {
       vertical_position = docBody.scrollTop;
     }
 
-    form_el.style.top = vertical_position + 'px';
+    form_el.style.top = (vertical_position - 150) + 'px';
   }
 
 
