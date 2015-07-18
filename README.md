@@ -53,8 +53,13 @@ Yes. only the urls can be accepted.
 
 ### 1.0
 * Initial Release
+
 ### 1.1
 * Add option to disable or enable modal popup
+
+### 1.15
+* Refactor scrollManager: Separate tracking from overlay invocation
+* Adjust tracking distance from top
 
 ## Upgrade Notice
 
@@ -63,6 +68,10 @@ Yes. only the urls can be accepted.
 
 ### 1.1
 * Add option to disable or enable modal popup
+
+### 1.15
+* Refactor scrollManager: Separate tracking from overlay invocation
+* Adjust tracking distance from top
 
 ## Notes to developers
 
