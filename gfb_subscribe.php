@@ -167,7 +167,7 @@ class GFB_MailChimp_Subscribe extends WP_Widget
            <input type="text" name="<?php echo $this->get_field_name('privacy_policy'); ?>"  value="<?php echo esc_attr($privacy_policy); ?>" class="widefat" id="<?php echo $this->get_field_id('privacy_policy'); ?>" placeholder="Set to override default"/>
     	  </p>
     		<p>
-    		   <label for="<?php echo $this->get_field_id('scroller_activity_status'); ?>"><?php _e('Enable OnScroll (optional):','woothemes'); ?></label>
+    		   <label for="<?php echo $this->get_field_id('scroller_activity_status'); ?>"><?php _e('Display Popup On Scroll (optional):','woothemes'); ?></label>
     		   <input type="checkbox" name="<?php echo $this->get_field_name('scroller_activity_status'); ?>"  <?php checked($instance['scroller_activity_status'], 'on'); ?> class="widefat" id="<?php echo $this->get_field_id('scroller_activity_status'); ?>" />
     		</p>
 		<?php
