@@ -15,14 +15,12 @@ GFBSubscribe.prototype.overlay = function() {
   if (this.overlay_display_status == "visible") {
     this.scroller();
   }
-  // console.log("El visibility overlay:", this.overlay_display_status);
 }
 
 GFBSubscribe.prototype.postData = function(email, url){
  var _this = this;
 
  if(this.isValidEmail(email) == true){
-   // console.log("isValidEmail: "+this.isValidEmail(email));
    var xmlhttp;
    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
      xmlhttp=new XMLHttpRequest();
@@ -31,11 +29,9 @@ GFBSubscribe.prototype.postData = function(email, url){
    }
 
    xmlhttp.onreadystatechange = function(){
-     // console.log("in ready state", xmlhttp.status);
      if (xmlhttp.status == 0 || xmlhttp.status == 200)
        {
          var respTag = document.getElementById("gfb_response_message_success");
-         // console.log("Email: ", respTag);
          respTag.innerHTML= "A confirmation email has been sent to your email address. <br/> Click the confirmation link to recieve the ebook.";
          respTag.style.display = "block";
          document.getElementById("gfb_intial_message").style.display = "none";
@@ -51,12 +47,10 @@ GFBSubscribe.prototype.postData = function(email, url){
 
  } else {
    var respTag = document.getElementById("gfb_response_message_error");
-   // console.log("Email: ", respTag);
    document.getElementById("gfb_response_message_success").style.display = "none";
 
    respTag.innerHTML= "Valid email address required";
    respTag.style.display = "block";
-   // console.log("Not valid: "+this.isValidEmail(email));
  }
 }
 
@@ -76,40 +70,43 @@ GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn, scrollerActivityS
 }
 
 GFBSubscribe.prototype.scroller = function() {
-   if(this.scroller_activity_status){
       var _this = this;
       window.onscroll = function () {
-        // console.log("El visibility:", this.overlay_display_status);
-        var docBody = document.body,
-        docElement = document.documentElement,
-        form_el = document.getElementById("gfb_newsletter_signup_form"),
-        vertical_position = 0,
-        height
+        if(this.scroller_activity_status) {
+          var docBody = document.body,
+          docElement = document.documentElement,
+          height
 
-        if(typeof document.height !== 'undefined') {
-          height = document.height // For webkit browsers
-        } else {
-          height = Math.max( docBody.scrollHeight, docBody.offsetHeight,docElement.clientHeight, docElement.scrollHeight, docElement.offsetHeight );
-        }
+          if(typeof document.height !== 'undefined') {
+            height = document.height // For webkit browsers
+          } else {
+            height = Math.max( docBody.scrollHeight, docBody.offsetHeight,docElement.clientHeight, docElement.scrollHeight, docElement.offsetHeight );
+          }
 
-        if(window.pageYOffset > (height/2)){
-          if(_this.overlay_display_status == 'hidden' ){
-            _this.overlay();
+          if(window.pageYOffset > (height/2)){
+            if(_this.overlay_display_status == 'hidden' ){
+              _this.overlay();
+            }
           }
         }
-
-        if(window.pageYOffset){
-          vertical_position = window.pageYOffset;
-        } else if(docElement.clientHeight){//ie
-          vertical_position = docElement.scrollTop;
-        } else if(docBody){//ie quirks
-          vertical_position = docBody.scrollTop;
-        }
-
-        form_el.style.top = vertical_position + 'px';
-        // console.log("Now:", form_el.style.top );
+        _this.scrollTracker();
       }
-    }
   }
+
+  GFBSubscribe.prototype.scrollTracker = function() {
+    var vertical_position = 0,
+    form_el = document.getElementById("gfb_newsletter_signup_form")
+
+    if(window.pageYOffset){
+      vertical_position = window.pageYOffset;
+    } else if(docElement.clientHeight){//ie
+      vertical_position = docElement.scrollTop;
+    } else if(docBody){//ie quirks
+      vertical_position = docBody.scrollTop;
+    }
+
+    form_el.style.top = vertical_position + 'px';
+  }
+
 
 var gfb_subscribe = new GFBSubscribe();
