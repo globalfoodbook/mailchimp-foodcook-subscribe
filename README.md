@@ -53,6 +53,8 @@ Yes. only the urls can be accepted.
 
 ### 1.0
 * Initial Release
+### 1.1
+* Add option to disable or enable modal popup
 
 ## Upgrade Notice
 
