@@ -185,7 +185,6 @@ class GFB_MailChimp_Subscribe extends WP_Widget
         $settings = woo_get_dynamic_values($settings);
         if ($settings['connect_mailchimp_list_url'] != "" && $settings['connect_newsletter_id'] == ""):?>
           <script type="text/javascript">
-           <?php echo "scroller_activity_status: ".$scroller_activity_status;?>
             gfb_subscribe.scrollManager(<?php
                if (is_user_logged_in()) {
                    echo "false";
