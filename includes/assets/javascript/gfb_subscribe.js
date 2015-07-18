@@ -1,5 +1,6 @@
 var GFBSubscribe = function(){};
 
+GFBSubscribe.prototype.scroller_activity_status = false;
 GFBSubscribe.prototype.overlay_display_status = "hidden";
 
 GFBSubscribe.prototype.overlay = function() {
@@ -63,8 +64,11 @@ GFBSubscribe.prototype.isValidEmail = function(entry) {
    return (entry.indexOf(".") > 2) && (entry.indexOf("@") > 0);
 }
 
-GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn) {
+GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn, scrollerActivityStatus) {
   if(typeof(isNotLoggedIn)==='undefined') isNotLoggedIn = true;
+  if(typeof(scrollerActivityStatus)==='undefined') scrollerActivityStatus = false;
+
+  this.scroller_activity_status = scrollerActivityStatus
 
   if (isNotLoggedIn) {
     this.scroller();
@@ -72,39 +76,40 @@ GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn) {
 }
 
 GFBSubscribe.prototype.scroller = function() {
-  var _this = this;
+   if(this.scroller_activity_status){
+      var _this = this;
+      window.onscroll = function () {
+        // console.log("El visibility:", this.overlay_display_status);
+        var docBody = document.body,
+        docElement = document.documentElement,
+        form_el = document.getElementById("gfb_newsletter_signup_form"),
+        vertical_position = 0,
+        height
 
-  window.onscroll = function () {
-    // console.log("El visibility:", this.overlay_display_status);
-    var docBody = document.body,
-    docElement = document.documentElement,
-    form_el = document.getElementById("gfb_newsletter_signup_form"),
-    vertical_position = 0,
-    height
+        if(typeof document.height !== 'undefined') {
+          height = document.height // For webkit browsers
+        } else {
+          height = Math.max( docBody.scrollHeight, docBody.offsetHeight,docElement.clientHeight, docElement.scrollHeight, docElement.offsetHeight );
+        }
 
-    if(typeof document.height !== 'undefined') {
-      height = document.height // For webkit browsers
-    } else {
-      height = Math.max( docBody.scrollHeight, docBody.offsetHeight,docElement.clientHeight, docElement.scrollHeight, docElement.offsetHeight );
-    }
+        if(window.pageYOffset > (height/2)){
+          if(_this.overlay_display_status == 'hidden' ){
+            _this.overlay();
+          }
+        }
 
-    if(window.pageYOffset > (height/2)){
-      if(_this.overlay_display_status == 'hidden' ){
-        _this.overlay();
+        if(window.pageYOffset){
+          vertical_position = window.pageYOffset;
+        } else if(docElement.clientHeight){//ie
+          vertical_position = docElement.scrollTop;
+        } else if(docBody){//ie quirks
+          vertical_position = docBody.scrollTop;
+        }
+
+        form_el.style.top = vertical_position + 'px';
+        // console.log("Now:", form_el.style.top );
       }
     }
-
-    if(window.pageYOffset){
-      vertical_position = window.pageYOffset;
-    } else if(docElement.clientHeight){//ie
-      vertical_position = docElement.scrollTop;
-    } else if(docBody){//ie quirks
-      vertical_position = docBody.scrollTop;
-    }
-
-    form_el.style.top = vertical_position + 'px';
-    // console.log("Now:", form_el.style.top );
   }
-}
 
 var gfb_subscribe = new GFBSubscribe();
