@@ -35,7 +35,7 @@ add_action( 'wp_enqueue_scripts', 'gfb_add_to_head' );
 class GFB_MailChimp_Subscribe extends WP_Widget
 {
     var $plugin_name = 'MailChimp Subscribe For Food & Cook Theme.';
-    var $settings = array('title', 'summary', 'button_txt', 'button_color', 'm_title', 'm_summary', 'm_img', 'privacy_policy');
+    var $settings = array('title', 'summary', 'button_txt', 'button_color', 'm_title', 'm_summary', 'm_img', 'privacy_policy', 'scroller_activity_status');
 
     function GFB_MailChimp_Subscribe()
     {
@@ -62,7 +62,8 @@ class GFB_MailChimp_Subscribe extends WP_Widget
             'm_title',
             'm_summary',
             'm_img',
-            'privacy_policy'
+            'privacy_policy',
+            'scroller_activity_status'
         ) as $setting) {
             if (!$$setting)
                 $$setting = $settings[$setting];
@@ -96,7 +97,7 @@ class GFB_MailChimp_Subscribe extends WP_Widget
             </div>
           </center>
           <?php
-          $this->subscribe_form($m_title, $m_summary, $m_img, $privacy_policy, $button_color);
+          $this->subscribe_form($m_title, $m_summary, $m_img, $privacy_policy, $button_color, $scroller_activity_status);
         } else{ $this->dependency_message();  }
         echo $after_widget;
     }
@@ -165,12 +166,16 @@ class GFB_MailChimp_Subscribe extends WP_Widget
     		   <label for="<?php echo $this->get_field_id('privacy_policy'); ?>"><?php _e('Privacy Policy:', 'woothemes'); ?></label>
            <input type="text" name="<?php echo $this->get_field_name('privacy_policy'); ?>"  value="<?php echo esc_attr($privacy_policy); ?>" class="widefat" id="<?php echo $this->get_field_id('privacy_policy'); ?>" placeholder="Set to override default"/>
     	  </p>
+    		<p>
+    		   <label for="<?php echo $this->get_field_id('scroller_activity_status'); ?>"><?php _e('Enable OnScroll (optional):','woothemes'); ?></label>
+    		   <input type="checkbox" name="<?php echo $this->get_field_name('scroller_activity_status'); ?>"  <?php checked($instance['scroller_activity_status'], 'on'); ?> class="widefat" id="<?php echo $this->get_field_id('scroller_activity_status'); ?>" />
+    		</p>
 		<?php
       } else {
         $this->dependency_message();
       }
     }
-    function subscribe_form($m_title, $m_summary, $m_img, $privacy_policy, $button_color)
+    function subscribe_form($m_title, $m_summary, $m_img, $privacy_policy, $button_color, $scroller_activity_status)
     {
         $settings = array(
             'connect_newsletter_id' => '',
@@ -180,12 +185,18 @@ class GFB_MailChimp_Subscribe extends WP_Widget
         $settings = woo_get_dynamic_values($settings);
         if ($settings['connect_mailchimp_list_url'] != "" && $settings['connect_newsletter_id'] == ""):?>
           <script type="text/javascript">
+           <?php echo "scroller_activity_status: ".$scroller_activity_status;?>
             gfb_subscribe.scrollManager(<?php
                if (is_user_logged_in()) {
                    echo "false";
                } else {
                    echo "true";
-               }?>)
+               }?>, <?php
+                  if ($scroller_activity_status) {
+                      echo "true";
+                  } else {
+                      echo "false";
+                  }?>)
           </script>
           <div id="gfb_widget_overlay">
             <div id="gfb_newsletter_signup_form">
