@@ -73,6 +73,9 @@ Yes. only the urls can be accepted.
 * Refactor scrollManager: Separate tracking from overlay invocation
 * Adjust tracking distance from top
 
+### 1.30
+* Cosmetic changes to subscrption form
+
 ## Notes to developers
 
 #### Contributing
