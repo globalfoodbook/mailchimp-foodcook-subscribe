@@ -226,12 +226,12 @@ class GFB_MailChimp_Subscribe extends WP_Widget
                   <div id="gfb_form_div">
                     <input id="gfb_subscribe_email_text" type="text" name="EMAIL" value="" placeholder="Enter your email address" id="mce-EMAIL" style="padding:0 0 0 15px;border:1px solid #ccc;font-size:22px!important;font-family:'Open Sans', Arial, Helvetica, sans-serif;font-weight:100;min-width:60px;color:#000;margin-bottom:10px;height:47.5px;display:block;width:100%;border-radius:4px;font: -webkit-small-control;letter-spacing:normal;line-height: normal;text-align:start;text-indent:0;text-shadow: none;text-transform:none;word-spacing:normal;">
                     <input type="hidden" id="gfb_connect_mailchimp_list_url" name="Language" value="<?php echo $settings['connect_mailchimp_list_url']; ?>">
-                    <button name="subscribe" id="gfb_subscribe_button" class="btn submit button" type="button" onclick="gfb_subscribe.postData(document.getElementById('gfb_subscribe_email_text').value, document.getElementById('gfb_connect_mailchimp_list_url').value)" style="font-weight:bold;font-size:20px;cursor: pointer;height:47.5px;display:block;width:100%;background: -moz-linear-gradient(top, #ffa200 0%, #ff6800 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffa200), color-stop(100%,#ff6800));background: -webkit-linear-gradient(top, #ffa200 0%,#ff6800 100%);background: -o-linear-gradient(top, #ffa200 0%,#ff6800 100%);background: -ms-linear-gradient(top, #ffa200 0%,#ff6800 100%);background: linear-gradient(to bottom, #ffa200 0%,#ff6800 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa200', endColorstr='#ff6800',GradientType=0 );box-shadow: inset 0px 1px 0px rgba(255,202,0,1), inset 0px -3px 0px rgba(0,0,0,0.12);border-radius:4px;background:  <?php
+                    <button name="subscribe" id="gfb_subscribe_button" class="btn submit button" type="button" onclick="gfb_subscribe.postData(document.getElementById('gfb_subscribe_email_text').value, document.getElementById('gfb_connect_mailchimp_list_url').value)" style="font-weight:bold;font-size:20px;cursor: pointer;height:47.5px;display:block;width:100%;border-radius:4px;background:  <?php
                       if ($button_color) {
                           echo $button_color;
                       } else {
-                          echo '#512D8C';
-                      }?> none repeat scroll 0%;" ><?php _e('Sign Up', 'woothemes');?></button>
+                          echo '#ffa200';
+                      }?> none repeat scroll 0%;" ><?php _e($m_button_text, 'woothemes');?></button>
                   </div>
                </center>
                <br/><br/>
