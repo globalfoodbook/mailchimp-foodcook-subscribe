@@ -97,7 +97,10 @@ class GFB_MailChimp_Subscribe extends WP_Widget
             </div>
           </center>
           <?php
-          $this->subscribe_form($m_title, $m_summary, $m_img, $privacy_policy, $button_color, $scroller_activity_status);
+          if (!$m_button_text) {
+              $m_button_text = "Sign Up";
+          }
+          $this->subscribe_form($m_title, $m_summary, $m_img, $privacy_policy, $button_color, $scroller_activity_status, $m_button_text);
         } else{ $this->dependency_message();  }
         echo $after_widget;
     }
@@ -163,6 +166,10 @@ class GFB_MailChimp_Subscribe extends WP_Widget
            <input type="text" name="<?php echo $this->get_field_name('m_img'); ?>"  value="<?php echo esc_attr($m_img); ?>" class="widefat" id="<?php echo $this->get_field_id('m_img'); ?>"/>
     	  </p>
     		<p>
+    		   <label for="<?php echo $this->get_field_id('m_button_text'); ?>"><?php _e('Popup Button Text (optional):', 'woothemes'); ?></label>
+           <input type="text" name="<?php echo $this->get_field_name('m_button_text'); ?>" value="<?php echo esc_attr($m_button_text); ?>" class="widefat" id="<?php echo $this->get_field_id('m_button_text'); ?>" placeholder="Default is Sign Up"/>
+    	  </p>
+    		<p>
     		   <label for="<?php echo $this->get_field_id('privacy_policy'); ?>"><?php _e('Privacy Policy:', 'woothemes'); ?></label>
            <input type="text" name="<?php echo $this->get_field_name('privacy_policy'); ?>"  value="<?php echo esc_attr($privacy_policy); ?>" class="widefat" id="<?php echo $this->get_field_id('privacy_policy'); ?>" placeholder="Set to override default"/>
     	  </p>
@@ -175,7 +182,7 @@ class GFB_MailChimp_Subscribe extends WP_Widget
         $this->dependency_message();
       }
     }
-    function subscribe_form($m_title, $m_summary, $m_img, $privacy_policy, $button_color, $scroller_activity_status)
+    function subscribe_form($m_title, $m_summary, $m_img, $privacy_policy, $button_color, $scroller_activity_status, $m_button_text)
     {
         $settings = array(
             'connect_newsletter_id' => '',
