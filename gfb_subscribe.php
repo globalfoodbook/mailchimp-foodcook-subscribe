@@ -1,7 +1,7 @@
 <?php
 /**
  * @package MailChimp Subscribe For Food & Cook Theme by Global Food Book
- * @version 1.15
+ * @version 1.30
  */
 /*
 Plugin Name: MailChimp Subscribe For Food & Cook Theme
