@@ -11,11 +11,14 @@ GFBSubscribe.prototype.eventSource = null;
 GFBSubscribe.prototype.overlay = function(source) {
   this.eventSource = source;
   el = document.getElementById("gfb_widget_overlay");
+
   document.getElementById("gfb_response_message_success").style.display = "none";
   document.getElementById("gfb_response_message_error").style.display = "none";
   document.getElementById("gfb_subscribe_email_text").value = "";
   document.getElementById("gfb_intial_message").style.display = "inline";
+
   el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+  
   this.overlay_display_status = el.style.visibility;
 
   if (this.overlay_display_status == "visible") {
