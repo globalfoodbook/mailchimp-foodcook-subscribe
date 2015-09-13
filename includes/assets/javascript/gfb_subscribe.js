@@ -106,21 +106,21 @@ GFBSubscribe.prototype.scroller = function() {
   }
 
   GFBSubscribe.prototype.scrollTracker = function() {
-    var vertical_position = 0,
+    var verticalPosition = 0,
     formEl = document.getElementById("gfb_newsletter_signup_form")
 
     if (window.pageYOffset){
-      vertical_position = window.pageYOffset;
+      verticalPosition = window.pageYOffset;
     } else if(this.docElement.clientHeight){//ie
-      vertical_position = this.docElement.scrollTop;
+      verticalPosition = this.docElement.scrollTop;
     } else if(this.docBody){//ie quirks
-      vertical_position = this.docBody.scrollTop;
+      verticalPosition = this.docBody.scrollTop;
     }
 
     if (this.eventSource != 'onscroll'){
-      formEl.style.top = (vertical_position - 150) + 'px';
+      formEl.style.top = (verticalPosition - 150) + 'px';
     } else {
-      formEl.style.top = (vertical_position + 145) + 'px';
+      formEl.style.top = (verticalPosition + (formEl.offsetHeight/2)) + 'px';
     }
   }
 
