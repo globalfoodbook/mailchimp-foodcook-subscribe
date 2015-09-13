@@ -95,7 +95,7 @@ GFBSubscribe.prototype.scroller = function() {
 
   GFBSubscribe.prototype.scrollTracker = function() {
     var vertical_position = 0,
-    form_el = document.getElementById("gfb_newsletter_signup_form")
+    formEl = document.getElementById("gfb_newsletter_signup_form")
 
     if(window.pageYOffset){
       vertical_position = window.pageYOffset;
@@ -105,7 +105,7 @@ GFBSubscribe.prototype.scroller = function() {
       vertical_position = docBody.scrollTop;
     }
 
-    form_el.style.top = (vertical_position - 150) + 'px';
+    formEl.style.top = (vertical_position - 150) + 'px';
   }
 
 
