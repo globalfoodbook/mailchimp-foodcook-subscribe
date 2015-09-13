@@ -6,7 +6,7 @@ GFBSubscribe.prototype.overlay_display_status = "hidden";
 GFBSubscribe.prototype.docBody = null;
 GFBSubscribe.prototype.docElement = null;
 
-GFBSubscribe.prototype.overlay = function() {
+GFBSubscribe.prototype.overlay = function(source) {
   el = document.getElementById("gfb_widget_overlay");
   document.getElementById("gfb_response_message_success").style.display = "none";
   document.getElementById("gfb_response_message_error").style.display = "none";
@@ -40,7 +40,7 @@ GFBSubscribe.prototype.postData = function(email, url){
          document.getElementById("gfb_intial_message").style.display = "none";
          document.getElementById("gfb_response_message_error").style.display = "none";
 
-         setTimeout(function(){ _this.overlay(); }, 15000);
+         setTimeout(function(){ _this.overlay('onreadystatechange'); }, 15000);
        }
      }
 
@@ -89,7 +89,7 @@ GFBSubscribe.prototype.scroller = function() {
 
           if(window.pageYOffset > (height/2)){
             if(_this.overlay_display_status == 'hidden' ){
-              _this.overlay();
+              _this.overlay('onscroll');
             }
           }
         }
