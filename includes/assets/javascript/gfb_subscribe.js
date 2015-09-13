@@ -18,6 +18,8 @@ GFBSubscribe.prototype.overlay = function(source) {
   if (this.overlay_display_status == "visible") {
     this.scroller();
   }
+
+  this.LayoutManager(el, source);
 }
 
 GFBSubscribe.prototype.postData = function(email, url){
@@ -112,5 +114,12 @@ GFBSubscribe.prototype.scroller = function() {
     formEl.style.top = (vertical_position - 150) + 'px';
   }
 
+GFBSubscribe.prototype.LayoutManager = function(el, source) {
+  if (source == 'onscroll') {
+    el.style.boxShadow = 'none';
+  } else {
+    el.style.boxShadow = '0 0 0 9999px rgba(0, 0, 0, 0.5)';
+  }
+}
 
 var gfb_subscribe = new GFBSubscribe();
