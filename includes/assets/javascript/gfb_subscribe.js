@@ -3,6 +3,9 @@ var GFBSubscribe = function(){};
 GFBSubscribe.prototype.scroller_activity_status = false;
 GFBSubscribe.prototype.overlay_display_status = "hidden";
 
+GFBSubscribe.prototype.docBody = null;
+GFBSubscribe.prototype.docElement = null;
+
 GFBSubscribe.prototype.overlay = function() {
   el = document.getElementById("gfb_widget_overlay");
   document.getElementById("gfb_response_message_success").style.display = "none";
@@ -64,6 +67,9 @@ GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn, scrollerActivityS
 
   this.scroller_activity_status = scrollerActivityStatus
 
+  this.docBody = document.body;
+  this.docElement = document.documentElement;
+
   if (isNotLoggedIn) {
     this.scroller();
   }
@@ -72,15 +78,13 @@ GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn, scrollerActivityS
 GFBSubscribe.prototype.scroller = function() {
       var _this = this;
       window.onscroll = function () {
-        if(_this.scroller_activity_status) {
-          var docBody = document.body,
-          docElement = document.documentElement,
-          height
+        var height;
 
+        if(_this.scroller_activity_status) {
           if(typeof document.height !== 'undefined') {
             height = document.height // For webkit browsers
           } else {
-            height = Math.max( docBody.scrollHeight, docBody.offsetHeight,docElement.clientHeight, docElement.scrollHeight, docElement.offsetHeight );
+            height = Math.max( _this.docBody.scrollHeight, _this.docBody.offsetHeight, _this.docElement.clientHeight, _this.docElement.scrollHeight, _this.docElement.offsetHeight);
           }
 
           if(window.pageYOffset > (height/2)){
@@ -99,10 +103,10 @@ GFBSubscribe.prototype.scroller = function() {
 
     if(window.pageYOffset){
       vertical_position = window.pageYOffset;
-    } else if(docElement.clientHeight){//ie
-      vertical_position = docElement.scrollTop;
-    } else if(docBody){//ie quirks
-      vertical_position = docBody.scrollTop;
+    } else if(this.docElement.clientHeight){//ie
+      vertical_position = this.docElement.scrollTop;
+    } else if(this.docBody){//ie quirks
+      vertical_position = this.docBody.scrollTop;
     }
 
     formEl.style.top = (vertical_position - 150) + 'px';
