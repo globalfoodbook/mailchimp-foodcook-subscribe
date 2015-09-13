@@ -209,9 +209,9 @@ class GFB_MailChimp_Subscribe extends WP_Widget
             <div id="gfb_newsletter_signup_form">
               <a class="boxclose" onclick="gfb_subscribe.overlay('onboxclose');" id="boxclose" style=""></a>
               <?php if ($m_img) {?>
-                <img class="gfb_ebook_img" src="<?php echo $m_img;?>" style="float:left; width:30%;min-width:50px;max-width:200px;max-height:250px;min-height:100px;"/>
+                <img id="gfb_ebook_img" class="gfb_ebook_img" src="<?php echo $m_img;?>" style="float:left; width:30%;min-width:50px;max-width:200px;max-height:250px;min-height:100px;"/>
               <?php } ?>
-              <div id="" style="<?php
+              <div id="gfb_form_box" style="<?php
                 if ($m_img) {
                     echo 'float:right;width:70%; border:0;';
                 } else {
