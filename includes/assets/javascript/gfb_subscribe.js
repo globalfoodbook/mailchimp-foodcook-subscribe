@@ -92,7 +92,7 @@ GFBSubscribe.prototype.scroller = function() {
             height = Math.max( _this.docBody.scrollHeight, _this.docBody.offsetHeight, _this.docElement.clientHeight, _this.docElement.scrollHeight, _this.docElement.offsetHeight);
           }
 
-          if(window.pageYOffset > (height/2)){
+          if(window.pageYOffset > (height/6)){
             if(_this.overlay_display_status == 'hidden' ){
               _this.overlay('onscroll');
             }
