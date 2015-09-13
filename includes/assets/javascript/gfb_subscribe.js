@@ -6,7 +6,10 @@ GFBSubscribe.prototype.overlay_display_status = "hidden";
 GFBSubscribe.prototype.docBody = null;
 GFBSubscribe.prototype.docElement = null;
 
+GFBSubscribe.prototype.eventSource = null;
+
 GFBSubscribe.prototype.overlay = function(source) {
+  this.eventSource = source;
   el = document.getElementById("gfb_widget_overlay");
   document.getElementById("gfb_response_message_success").style.display = "none";
   document.getElementById("gfb_response_message_error").style.display = "none";
@@ -19,7 +22,7 @@ GFBSubscribe.prototype.overlay = function(source) {
     this.scroller();
   }
 
-  this.LayoutManager(el, source);
+  this.LayoutManager(el);
 }
 
 GFBSubscribe.prototype.postData = function(email, url){
@@ -103,7 +106,7 @@ GFBSubscribe.prototype.scroller = function() {
     var vertical_position = 0,
     formEl = document.getElementById("gfb_newsletter_signup_form")
 
-    if(window.pageYOffset){
+    if (window.pageYOffset){
       vertical_position = window.pageYOffset;
     } else if(this.docElement.clientHeight){//ie
       vertical_position = this.docElement.scrollTop;
@@ -111,14 +114,27 @@ GFBSubscribe.prototype.scroller = function() {
       vertical_position = this.docBody.scrollTop;
     }
 
-    formEl.style.top = (vertical_position - 150) + 'px';
+    if (this.eventSource != 'onscroll'){
+      formEl.style.top = (vertical_position - 150) + 'px';
+    } else {
+      formEl.style.top = (vertical_position + 145) + 'px';
+    }
   }
 
-GFBSubscribe.prototype.LayoutManager = function(el, source) {
-  if (source == 'onscroll') {
+GFBSubscribe.prototype.LayoutManager = function(el) {
+  var formEl = document.getElementById('gfb_form_box')
+  if (this.eventSource == 'onscroll') {
     el.style.boxShadow = 'none';
+    el.style.left = '70%';
+    formEl.style.width = '100%';
+    document.getElementById('gfb_ebook_img').style.display = 'none';
+    document.getElementById('gfb_form_box').style.maxWidth = '450px';
   } else {
     el.style.boxShadow = '0 0 0 9999px rgba(0, 0, 0, 0.5)';
+    formEl.style.width = '70%';
+    el.style.left = 0;
+    document.getElementById('gfb_ebook_img').style.display = 'block';
+    document.getElementById('gfb_form_box').style.maxWidth = '750px';
   }
 }
 
