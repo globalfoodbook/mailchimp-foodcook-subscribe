@@ -18,7 +18,7 @@ GFBSubscribe.prototype.overlay = function(source) {
   document.getElementById("gfb_intial_message").style.display = "inline";
 
   el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
-  
+
   this.overlay_display_status = el.style.visibility;
 
   if (this.overlay_display_status == "visible") {
@@ -128,7 +128,7 @@ GFBSubscribe.prototype.LayoutManager = function(el) {
   var formEl = document.getElementById('gfb_form_box')
   if (this.eventSource == 'onscroll') {
     el.style.boxShadow = 'none';
-    el.style.left = '70%';
+    el.style.left = (window.screen.width/2) + 'px';
     formEl.style.width = '100%';
     document.getElementById('gfb_ebook_img').style.display = 'none';
     document.getElementById('gfb_form_box').style.maxWidth = '450px';
