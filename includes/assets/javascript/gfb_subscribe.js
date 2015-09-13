@@ -72,7 +72,7 @@ GFBSubscribe.prototype.scrollManager = function(isNotLoggedIn, scrollerActivityS
 GFBSubscribe.prototype.scroller = function() {
       var _this = this;
       window.onscroll = function () {
-        if(this.scroller_activity_status) {
+        if(_this.scroller_activity_status) {
           var docBody = document.body,
           docElement = document.documentElement,
           height
