@@ -1,6 +1,6 @@
 # Mailchimp Food-Cook Subscribe
 Contributors: (kengimel)
-Tags: newsletter, food-cook, recipe plugin, mailchimp
+Tags: newsletter, food-cook, recipe plugin, mailchimp, shortcode, global food book
 Requires at least: 3.0.1
 Tested up to: 4.2.2
 Stable tag: 1
@@ -74,6 +74,12 @@ Yes. only the urls can be accepted.
 * Adjust tracking distance from top
 
 ### 1.30
+* Cosmetic changes to subscrption form
+
+### 1.40
+* After close set scroll status to false.
+* Refactor to use screen width to determine the left position of the modal box
+* Define and implement LayoutManager
 * Cosmetic changes to subscrption form
 
 ## Notes to developers
