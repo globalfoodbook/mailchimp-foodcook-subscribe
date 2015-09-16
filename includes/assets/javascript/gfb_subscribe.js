@@ -10,6 +10,11 @@ GFBSubscribe.prototype.eventSource = null;
 
 GFBSubscribe.prototype.overlay = function(source) {
   this.eventSource = source;
+
+  if(this.eventSource == 'onboxclose'){
+    this.scroller_activity_status = false;
+  }
+
   el = document.getElementById("gfb_widget_overlay");
 
   document.getElementById("gfb_response_message_success").style.display = "none";
@@ -117,23 +122,27 @@ GFBSubscribe.prototype.scroller = function() {
       verticalPosition = this.docBody.scrollTop;
     }
 
-    if (this.eventSource != 'onscroll'){
-      formEl.style.top = (verticalPosition - 150) + 'px';
+    if (this.eventSource == 'onscroll' && window.screen.width >= 1000){
+      formEl.style.top = (verticalPosition + (formEl.offsetHeight/7)) + 'px';
     } else {
-      formEl.style.top = (verticalPosition + (formEl.offsetHeight/2)) + 'px';
+      formEl.style.top = (verticalPosition - 150) + 'px';
     }
   }
 
 GFBSubscribe.prototype.LayoutManager = function(el) {
-  var formEl = document.getElementById('gfb_form_box')
-  if (this.eventSource == 'onscroll') {
+  var formEl      = document.getElementById('gfb_form_box'),
+      screenWidth = window.screen.width
+
+  if (this.eventSource == 'onscroll' && screenWidth >= 1000) {
     el.style.boxShadow = 'none';
-    el.style.left = (window.screen.width/2) + 'px';
+    el.style.backgroundColor = 'transparent';
+    el.style.left = (screenWidth/2) + 'px';
     formEl.style.width = '100%';
     document.getElementById('gfb_ebook_img').style.display = 'none';
     document.getElementById('gfb_form_box').style.maxWidth = '450px';
   } else {
     el.style.boxShadow = '0 0 0 9999px rgba(0, 0, 0, 0.5)';
+    el.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
     formEl.style.width = '70%';
     el.style.left = 0;
     document.getElementById('gfb_ebook_img').style.display = 'block';
