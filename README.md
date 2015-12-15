@@ -61,6 +61,18 @@ Yes. only the urls can be accepted.
 * Refactor scrollManager: Separate tracking from overlay invocation
 * Adjust tracking distance from top
 
+### 1.30
+* Cosmetic changes to subscription form
+
+### 1.40
+* After close set scroll status to false.
+* Refactor to use screen width to determine the left position of the modal box
+* Define and implement LayoutManager
+* Cosmetic changes to subscription form
+
+### 1.50
+* Bump wordpress compatible version
+
 ## Upgrade Notice
 
 ### 1
@@ -74,13 +86,16 @@ Yes. only the urls can be accepted.
 * Adjust tracking distance from top
 
 ### 1.30
-* Cosmetic changes to subscrption form
+* Cosmetic changes to subscription form
 
 ### 1.40
 * After close set scroll status to false.
 * Refactor to use screen width to determine the left position of the modal box
 * Define and implement LayoutManager
-* Cosmetic changes to subscrption form
+* Cosmetic changes to subscription form
+
+### 1.50
+* Bump wordpress compatible version
 
 ## Notes to developers
 
