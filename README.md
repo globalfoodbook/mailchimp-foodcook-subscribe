@@ -2,7 +2,7 @@
 Contributors: (kengimel)
 Tags: newsletter, food-cook, recipe plugin, mailchimp, shortcode, global food book
 Requires at least: 3.0.1
-Tested up to: 4.2.2
+Tested up to: 4.4
 Stable tag: 1
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
