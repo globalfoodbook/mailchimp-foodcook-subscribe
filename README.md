@@ -20,7 +20,6 @@ For more details. This plugin is built to help other [food-cook](http://themefor
 
 It is implemented to allow easy setup and customization of a website's newsletter subscription widget and modal popup. It is best used with food and cook recipe theme made with woo themes.
 
-
 ## Installation
 
 1. Upload /mailchimp-woothemes-subscribe to the /wp-content/plugins directory
